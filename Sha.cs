@@ -105,41 +105,33 @@
 
     public static void TransformBlock(Context Ctx, byte[] Data)
     {
-        uint S0;
-        uint S1;
-        uint S2;
-        uint S3;
-        uint S4;
-        uint S5;
-        uint S6;
-        uint S7;
-        uint S8;
-        uint S9;
+        uint I1;
+        uint I2;
 
         uint[] Blk = new uint[64];
 
-        for (S8 = 0, S9 = 0; S8 < 16; ++S8, S9 += 4)
+        for (I1 = 0, I2 = 0; I1 < 16; ++I1, I2 += 4)
         {
-            Blk[S8] = (uint)((Data[S9] << 24) | (Data[S9 + 1] << 16) | (Data[S9 + 2] << 8) | (Data[S9 + 3]));
+            Blk[I1] = (uint)((Data[I2] << 24) | (Data[I2 + 1] << 16) | (Data[I2 + 2] << 8) | (Data[I2 + 3]));
         }
 
-        for (; S8 < 64; ++S8)
+        for (; I1 < 64; ++I1)
         {
-            Blk[S8] = (((Blk[S8 - 2] >> 17) | (Blk[S8 - 2] << 15)) ^ ((Blk[S8 - 2] >> 19) | (Blk[S8 - 2] << 13)) ^ (Blk[S8 - 2] >> 10)) + Blk[S8 - 7] + (((Blk[S8 - 15] >> 7) | (Blk[S8 - 15] << 25)) ^ ((Blk[S8 - 15] >> 18) | (Blk[S8 - 15] << 14)) ^ (Blk[S8 - 15] >> 3)) + Blk[S8 - 16];
+            Blk[I1] = (((Blk[I1 - 2] >> 17) | (Blk[I1 - 2] << 15)) ^ ((Blk[I1 - 2] >> 19) | (Blk[I1 - 2] << 13)) ^ (Blk[I1 - 2] >> 10)) + Blk[I1 - 7] + (((Blk[I1 - 15] >> 7) | (Blk[I1 - 15] << 25)) ^ ((Blk[I1 - 15] >> 18) | (Blk[I1 - 15] << 14)) ^ (Blk[I1 - 15] >> 3)) + Blk[I1 - 16];
         }
 
-        S0 = Ctx.BlkState[0];
-        S1 = Ctx.BlkState[1];
-        S2 = Ctx.BlkState[2];
-        S3 = Ctx.BlkState[3];
-        S4 = Ctx.BlkState[4];
-        S5 = Ctx.BlkState[5];
-        S6 = Ctx.BlkState[6];
-        S7 = Ctx.BlkState[7];
+        uint S0 = Ctx.BlkState[0];
+        uint S1 = Ctx.BlkState[1];
+        uint S2 = Ctx.BlkState[2];
+        uint S3 = Ctx.BlkState[3];
+        uint S4 = Ctx.BlkState[4];
+        uint S5 = Ctx.BlkState[5];
+        uint S6 = Ctx.BlkState[6];
+        uint S7 = Ctx.BlkState[7];
 
-        for (S8 = 0; S8 < 64; ++S8)
+        for (I1 = 0; I1 < 64; ++I1)
         {
-            uint T1 = S7 + (((S4 >> 6) | (S4 << 26)) ^ ((S4 >> 11) | (S4 << 21)) ^ ((S4 >> 25) | (S4 << 7))) + ((S4 & S5) ^ (~S4 & S6)) + RoundConstTable[S8] + Blk[S8];
+            uint T1 = S7 + (((S4 >> 6) | (S4 << 26)) ^ ((S4 >> 11) | (S4 << 21)) ^ ((S4 >> 25) | (S4 << 7))) + ((S4 & S5) ^ (~S4 & S6)) + RoundConstTable[I1] + Blk[I1];
             uint T2 = (((S0 >> 2) | (S0 << 30)) ^ ((S0 >> 13) | (S0 << 19)) ^ ((S0 >> 22) | (S0 << 10))) + ((S0 & S1) ^ (S0 & S2) ^ (S1 & S2));
             S7 = S6;
             S6 = S5;
